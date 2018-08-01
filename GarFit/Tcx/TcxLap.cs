@@ -4,16 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DateTime = Dynastream.Fit.DateTime;
+using SysDateTime = System.DateTime;
 
 namespace GarFit.TCX
 {
 	public class TcxLap
 	{
+		#region Fields
 		private uint timestamp;
 		private DateTime startTime;
 		private List<TcxTrack> tracks;
 		private double totalTimeSeconds = 0;
 
+		private uint startPositionLat;
+		private uint startPositionLong;
+		#endregion
+		
 		public uint Timestamp { get { return this.timestamp; } }
 		public DateTime StartTime { get { return this.startTime; } }
 		public double TotalTimeSeconds { get { return this.totalTimeSeconds; } }
@@ -33,9 +39,10 @@ namespace GarFit.TCX
 		
 		
 		// = (tcx-date(1989,31,12))*86400
-		public uint StartPositionLat;
+		public uint StartPositionLat { get { return this.startPositionLat; } }
+		
 		// = tcx*(2^31)/180
-		public uint StartPositionLong;
+		public uint StartPositionLong{ get { return this.startPositionLong; } }
 		// = tcx*(2^31)/180
 		public uint EndPositionLat;
 		// = tcx*(2^31)/180
@@ -52,6 +59,7 @@ namespace GarFit.TCX
 		//public float AvgSpeed"" Field#13) Value: 2.361 (raw value 2361)
 		//public float MaxSpeed"" Field#14) Value: 2.65 (raw value 2650)
  
+		// default
 		public float TotalAscent = 0;
 		//default
 		public float TotalDescent = 0;
@@ -59,8 +67,8 @@ namespace GarFit.TCX
 		public int Event = 9;
 		// default
 		public int EventType = 1;
-		// default
- 
+		
+		// calculate from track
 		public int AvgHeartRate;
 		// calculate from track
 		public int MaxHeartRate;
@@ -68,7 +76,7 @@ namespace GarFit.TCX
 		public int AvgCadence;
 		// calculate from track
 		public int MaxCadence;
-		// calculate from track
+		
 		public int Sport = 1;
 		// default
 		public int SubSport = 0;
@@ -86,6 +94,9 @@ namespace GarFit.TCX
 		//public Index0 EnhancedMaxSpeed"" Field#111) Value: 2.65 (raw value 2650)
 
 		public List<TcxTrack> Tracks { get { return this.tracks; } }
+		
+		#region Field Accessor
+		#endregion
 
 		/// <summary>
 		/// constructor
@@ -106,7 +117,7 @@ namespace GarFit.TCX
 		/// <param name="track"></param>
 		public void AddTrack(TcxTrack track)
 		{
-			this.Tracks.Add(track);
+			this.tracks.Add(track);
 			this._calculate(track);
 		}
 
@@ -116,7 +127,14 @@ namespace GarFit.TCX
 		/// <param name="track"></param>
 		void _calculate(TcxTrack track)
 		{
+			// calculate totalTimeSeconds
 			this.totalTimeSeconds += track.TotalTimeSeconds;
+			
+			// assign startPosition Lat & Long
+			if (this.tracks.Count() == 1) {
+				this.startPositionLat = track.StartPositionLat;
+				this.startPositionLong = track.StartPositionLong;
+			}
 		}
 	}
 }
