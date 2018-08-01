@@ -16,8 +16,8 @@ namespace GarFit.TCX
 		private List<TcxTrack> tracks;
 		private double totalTimeSeconds = 0;
 
-		private uint startPositionLat;
-		private uint startPositionLong;
+		private double startPositionLat;
+		private double startPositionLong;
 		#endregion
 		
 		public uint Timestamp { get { return this.timestamp; } }
@@ -39,10 +39,10 @@ namespace GarFit.TCX
 		
 		
 		// = (tcx-date(1989,31,12))*86400
-		public uint StartPositionLat { get { return this.startPositionLat; } }
+		public double StartPositionLat { get { return this.startPositionLat; } }
 		
 		// = tcx*(2^31)/180
-		public uint StartPositionLong{ get { return this.startPositionLong; } }
+		public double StartPositionLong{ get { return this.startPositionLong; } }
 		// = tcx*(2^31)/180
 		public uint EndPositionLat;
 		// = tcx*(2^31)/180
