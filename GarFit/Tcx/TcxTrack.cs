@@ -14,9 +14,10 @@ namespace GarFit.TCX
 		private List<TcxTrackPoint> trackPoints = new List<TcxTrackPoint>();
 		private FitLatitudeDegrees startPositionLat = 0;
 		private FitLongtitudeDegrees startPositionLong = 0;
+		private double totalTimeSeconds;
 		#endregion
 		
-		public double TotalTimeSeconds { get { throw new NotImplementedException(); } }
+		public double TotalTimeSeconds { get { return this.totalTimeSeconds; } }
 		public FitLatitudeDegrees StartPositionLat { get { return this.startPositionLat; } }
 		public FitLongtitudeDegrees StartPositionLong { get { return this.startPositionLong; } }
 		public List<TcxTrackPoint> TrackPoints { get { return this.trackPoints; } }
@@ -36,6 +37,14 @@ namespace GarFit.TCX
 		{
 			this.trackPoints.Add(trackPoint);
 			this._calculate();
+		}
+
+        /// <summary>
+        /// Sets the total time seconds.
+        /// </summary>
+        /// <param name="tcxTotalTimeSeconds">Tcx total time seconds.</param>
+		public void SetTotalTimeSeconds(double tcxTotalTimeSeconds) {
+			this.totalTimeSeconds = tcxTotalTimeSeconds;
 		}
 
 		/// <summary>
