@@ -43,7 +43,7 @@
             </Extensions>
           </Trackpoint>
 		  
-          <Trackpoint 2>
+          <Trackpoint>
             <Time>2017-11-27T12:16:31.000Z</Time>
             <Position>
               <LatitudeDegrees>10.377785861492157</LatitudeDegrees>

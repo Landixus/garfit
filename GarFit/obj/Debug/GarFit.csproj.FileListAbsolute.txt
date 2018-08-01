@@ -4,3 +4,9 @@ C:\Users\nhdinh\Desktop\2796947418\FitSDKRelease_20.67.00\cs\Examples\GarFit\Gar
 C:\Users\nhdinh\Desktop\2796947418\FitSDKRelease_20.67.00\cs\Examples\GarFit\GarFit\obj\Debug\GarFit.csprojResolveAssemblyReference.cache
 C:\Users\nhdinh\Desktop\2796947418\FitSDKRelease_20.67.00\cs\Examples\GarFit\GarFit\obj\Debug\GarFit.exe
 C:\Users\nhdinh\Desktop\2796947418\FitSDKRelease_20.67.00\cs\Examples\GarFit\GarFit\obj\Debug\GarFit.pdb
+C:\Users\nhdinh\Desktop\GarFit\GarFit\obj\Debug\GarFit.csprojResolveAssemblyReference.cache
+C:\Users\nhdinh\Desktop\GarFit\GarFit\obj\Debug\GarFit.exe
+C:\Users\nhdinh\Desktop\GarFit\GarFit\obj\Debug\GarFit.pdb
+C:\Users\nhdinh\Desktop\GarFit\GarFit\bin\Debug\GarFit.exe.config
+C:\Users\nhdinh\Desktop\GarFit\GarFit\bin\Debug\GarFit.exe
+C:\Users\nhdinh\Desktop\GarFit\GarFit\bin\Debug\GarFit.pdb

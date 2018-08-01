@@ -3,6 +3,9 @@ using DateTime = Dynastream.Fit.DateTime;
 
 namespace GarFit.TCX
 {
+	/// <summary>
+	/// FIT.Record
+	/// </summary>
 	public class TcxTrackPoint
 	{
 		private uint timestamp;
@@ -10,25 +13,25 @@ namespace GarFit.TCX
 
 		public uint Timestamp { get { return this.timestamp; } }
 		public List<TcxPosition> Positions { get { return this.positions; } }
-		public double AltitudeMeters { get; set; }
-		public double DistanceMeters { get; set; }
-		public int HeartRateBpm { get; set; }
-
-		//public string SensorState { get; set; }
-		//Field1 Index0 ("PositionLat" Field#0) Value: 123811718 (raw value 123811718)
-		//Field2 Index0 ("PositionLong" Field#1) Value: 1277884156 (raw value 1277884156)
-		              
+		
 		// tcx::DistanceMeters
-		public double Distance;
- 
+		public double AltitudeMeters { get; set; }
+		
 		// tcx::AltitudeMeters
-		public double Altitude;
+		public double DistanceMeters { get; set; }
  
 		// tcx::ext::Speed
 		public double Speed;
  
 		// tcx::ext::RunCadence
 		public int RunCadence { get; set; }
+		
+		// tcx::HeartRateBpm
+		public int HeartRateBpm { get; set; }
+
+		//public string SensorState { get; set; }
+		//Field1 Index0 ("PositionLat" Field#0) Value: 123811718 (raw value 123811718)
+		//Field2 Index0 ("PositionLong" Field#1) Value: 1277884156 (raw value 1277884156)
  
 		//Field8 Index0 ("HeartRate" Field#3) Value: 88 (raw value 88)
 		//Field9 Index0 ("Cadence" Field#4) Value: 54 (raw value 54)

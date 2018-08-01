@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using DateTime = Dynastream.Fit.DateTime;
 using SysDateTime = System.DateTime;
 
+using FitLatitudeDegrees = System.UInt32;
+using FitLongtitudeDegrees = System.UInt32;
+
 namespace GarFit.TCX
 {
 	public class TcxLap
@@ -16,8 +19,8 @@ namespace GarFit.TCX
 		private List<TcxTrack> tracks;
 		private double totalTimeSeconds = 0;
 
-		private double startPositionLat;
-		private double startPositionLong;
+		private FitLatitudeDegrees startPositionLat;
+		private FitLongtitudeDegrees startPositionLong;
 		#endregion
 		
 		public uint Timestamp { get { return this.timestamp; } }
@@ -38,11 +41,9 @@ namespace GarFit.TCX
 		//  end: extensions
 		
 		
-		// = (tcx-date(1989,31,12))*86400
-		public double StartPositionLat { get { return this.startPositionLat; } }
+		public FitLatitudeDegrees StartPositionLat { get { return this.startPositionLat; } }
+		public FitLongtitudeDegrees StartPositionLong{ get { return this.startPositionLong; } }
 		
-		// = tcx*(2^31)/180
-		public double StartPositionLong{ get { return this.startPositionLong; } }
 		// = tcx*(2^31)/180
 		public uint EndPositionLat;
 		// = tcx*(2^31)/180
@@ -118,23 +119,38 @@ namespace GarFit.TCX
 		public void AddTrack(TcxTrack track)
 		{
 			this.tracks.Add(track);
-			this._calculate(track);
+			this._calculate();
 		}
 
 		/// <summary>
 		/// self calculate
 		/// </summary>
-		/// <param name="track"></param>
-		void _calculate(TcxTrack track)
+		void _calculate()
 		{
-			// calculate totalTimeSeconds
-			this.totalTimeSeconds += track.TotalTimeSeconds;
+			// get first track and last track
+			TcxTrack firstTrack = null;
+			TcxTrack lastTrack = null;
+			
+			//	if there is only 1 track
+			if (this.tracks.Count() == 1) {
+				firstTrack = this.tracks[0];
+				lastTrack = this.tracks[0];
+			} else {
+				firstTrack = this.tracks[0];
+				lastTrack = this.tracks[this.tracks.Count() - 1];
+			}
+			
+			// calculate totalTimeSeconds from lastTrack
+			this.totalTimeSeconds += lastTrack.TotalTimeSeconds;
 			
 			// assign startPosition Lat & Long
 			if (this.tracks.Count() == 1) {
-				this.startPositionLat = track.StartPositionLat;
-				this.startPositionLong = track.StartPositionLong;
+				this.startPositionLat = firstTrack.StartPositionLat;
+				this.startPositionLong = firstTrack.StartPositionLong;
 			}
+			
+			// TODO: assign lastPosition Lat & Long
+			
 		}
 	}
 }

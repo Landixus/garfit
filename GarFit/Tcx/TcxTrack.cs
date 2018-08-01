@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FitLatitudeDegrees = System.UInt32;
+using FitLongtitudeDegrees = System.UInt32;
 
 namespace GarFit.TCX
 {
@@ -10,19 +12,19 @@ namespace GarFit.TCX
 	{
 		#region Fields
 		private List<TcxTrackPoint> trackPoints = new List<TcxTrackPoint>();
-		private uint startPositionLat = 0;
-		private uint startPositionLong = 0;
+		private FitLatitudeDegrees startPositionLat = 0;
+		private FitLongtitudeDegrees startPositionLong = 0;
 		#endregion
 		
-		public double TotalTimeSeconds { get; }
-		public uint StartPositionLat { get { return this.startPositionLat; } }
-		public uint StartPositionLong { get { return this.startPositionLong; } }
+		public double TotalTimeSeconds { get { throw new NotImplementedException(); } }
+		public FitLatitudeDegrees StartPositionLat { get { return this.startPositionLat; } }
+		public FitLongtitudeDegrees StartPositionLong { get { return this.startPositionLong; } }
 		public List<TcxTrackPoint> TrackPoints { get { return this.trackPoints; } }
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public TcxTrack()		
+		public TcxTrack()
 		{
 		}
 
@@ -44,9 +46,10 @@ namespace GarFit.TCX
 			// assign startPosition lat & long
 			if (this.trackPoints.Count() == 1 && this.trackPoints[0] != null) {
 				if (this.trackPoints[0].Positions[0] != null) {
+					// get lat, long from the first position
 					TcxPosition startPosition = this.trackPoints[0].Positions[0];
-					this.startPositionLat = (uint)startPosition.LatitudeDegrees;
-					this.startPositionLong = (uint)startPosition.LongitudeDegrees;
+					this.startPositionLat = startPosition.LatitudeDegrees;
+					this.startPositionLong = startPosition.LongitudeDegrees;
 				}
 			}
 		}
