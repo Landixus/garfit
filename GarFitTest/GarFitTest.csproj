@@ -43,6 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tcx\FitGenTest.cs" />
     <Compile Include="Tcx\TcxLoaderTest.cs" />
     <Compile Include="Tcx\TcxUtilityTest.cs" />
   </ItemGroup>

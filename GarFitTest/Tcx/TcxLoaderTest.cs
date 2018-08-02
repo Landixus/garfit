@@ -10,47 +10,16 @@ using System.Collections.Generic;
 namespace GarFitTest.Tcx {
 	[TestFixture]
 	public class TcxLoaderTest {
-				
-		[Test]
-		public void GetTcxDocTest() {
-			// assert file exists
-			string fileName = @"..\..\..\files\short.tcx";
-			Assert.True(SysFile.Exists(fileName));
-			
-			// try loading the tcx file and throw no exception
-			try {
-				XmlDocument xdocument = TcxLoader.GetTcxDoc(fileName);
-				Assert.NotNull(xdocument);
-			} catch (Exception ex) {
-				Assert.Fail(ex.Message);
-			}
-		}
-		
-		[Test]
-		public void GetTcxDocTest_Fail() {
-			// assert file exists
-			string fileName = @"..\..\..\files\short_fail.tcx";
-			Assert.True(SysFile.Exists(fileName));
-			
-			// try loading the tcx file and throw no exception
-			try {
-				XmlDocument xdocument = TcxLoader.GetTcxDoc(fileName);
-				Assert.Null(xdocument);
-			} catch (Exception ex) {
-				Assert.IsFalse(string.IsNullOrEmpty(ex.Message), ex.Message, ex);
-			}
-		}
-		
 		[Test]
 		public void LoadActivities_Test() {
 			// assert file exists
-			string fileName = @"..\..\..\files\tpm2018.tcx";
+			string fileName = @"C:\Users\nhdinh\Desktop\GarFit\GarFit\bin\Debug\1.tcx";
 			Assert.True(SysFile.Exists(fileName));
 			
 			TrainingCenterDatabase_t db = TcxLoader.LoadActivities(fileName);
 			Assert.NotNull(db);			
 			if (db != null)
-				Assert.AreEqual(db.Activities.Activity[0].Lap.Length, 42);
+				Assert.AreEqual(db.Activities.Activity[0].Lap.Length, 20);
 		}
 	}
 }
