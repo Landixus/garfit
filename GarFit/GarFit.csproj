@@ -340,6 +340,7 @@
     <Compile Include="Dynastream\Fit\Subfield.cs" />
     <Compile Include="Dynastream\Utility\EndianBinaryReader.cs" />
     <Compile Include="Dynastream\Utility\EndianBinaryWriter.cs" />
+    <Compile Include="FitGen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TCX2\TrainingCenterDatabasev2.cs" />

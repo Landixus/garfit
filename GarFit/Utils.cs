@@ -54,5 +54,9 @@ namespace GarFit {
 		public static void LogMessage(LogType logType, string message) {
 			LogMessage(logType, message, null);
 		}
+		
+		public static int? ConvertTcxLatLongToFit(double value) {
+			return (int?)(value * (2 ^ 31) / 180);
+		}
 	}
 }

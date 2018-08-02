@@ -15,7 +15,7 @@ namespace GarFit.TCX {
 		/// </summary>
 		/// <param name="tcxFile"></param>
 		/// <returns>List of activities</returns>
-		public TrainingCenterDatabase_t LoadActivities(string tcxFile) {
+		public static TrainingCenterDatabase_t LoadActivities(string tcxFile) {
 			
 			// load file
 			XmlDocument tcxDocument = null;
@@ -61,7 +61,7 @@ namespace GarFit.TCX {
 		/// </summary>
 		/// <param name="tcxFile">Fully qualified file name (local)</param>
 		/// <returns>XDocument</returns>
-		public XmlDocument GetTcxDoc(string tcxFile) {
+		public static XmlDocument GetTcxDoc(string tcxFile) {
 			try {
 				var settings = new XmlReaderSettings();
 				settings.Schemas.Add("http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2",
