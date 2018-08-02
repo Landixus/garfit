@@ -25,8 +25,10 @@ namespace GarFit.TCX
 		private FitLongtitudeDegrees endPositionLong;
 		#endregion
 
-		public uint Timestamp { get { return this.timestamp; } }
-		public DateTime StartTime { get { return this.startTime; } }
+		/// <summary>
+		/// Properties from Tcx can get data from Tcx file, or calculate (which is noted)
+		/// </summary>
+		#region TcxProperties
 		public double TotalTimeSeconds { get { return this.totalTimeSeconds; } }
 		public double DistanceMeters { set; get; }
 		public double MaximumSpeed { set; get; }
@@ -35,18 +37,21 @@ namespace GarFit.TCX
 		public int MaximumHeartRateBpm { set; get; }
 		public string Intensity { set; get; }
 		public int TriggerMethod { get { return 2; } }
-
+		
 		// start: extensions
-		public double AvgSpeed { set; get; }
-		public int AvgRunCadence { set; get; }
-		public int MaxRunCadence { set; get; }
+		public double AvgSpeedExt { set; get; }
+		public int AvgRunCadenceExt { set; get; }
+		public int MaxRunCadenceExt { set; get; }
 		//  end: extensions
-
-
+		#endregion
+		
+		#region FitProperties
+		public uint Timestamp { get { return this.timestamp; } }
+		public DateTime StartTime { get { return this.startTime; } }
 		public FitLatitudeDegrees StartPositionLat { get { return this.startPositionLat; } }
-		public FitLongtitudeDegrees StartPositionLong { get { return this.startPositionLong; } }      
+		public FitLongtitudeDegrees StartPositionLong { get { return this.startPositionLong; } }
 		public FitLatitudeDegrees EndPositionLat { get { return this.endPositionLat; } }
-		public FitLongtitudeDegrees EndPositionLong { get { return this.endPositionLong; } }      
+		public FitLongtitudeDegrees EndPositionLong { get { return this.endPositionLong; } }
 		public float TotalElapsedTime;
 		// from
 		public float TotalTimerTime;
@@ -91,7 +96,11 @@ namespace GarFit.TCX
 
 		//public Index0 EnhancedAvgSpeed"" Field#110) Value: 2.361 (raw value 2361)
 		//public Index0 EnhancedMaxSpeed"" Field#111) Value: 2.65 (raw value 2650)
-
+		#endregion
+		
+		/// <summary>
+		/// Tracks container
+		/// </summary>
 		public List<TcxTrack> Tracks { get { return this.tracks; } }
 
 		#region Field Accessor
@@ -131,13 +140,7 @@ namespace GarFit.TCX
 			int totalTracks = this.tracks.Count();
 
 			//	if there is only 1 track
-			if (totalTracks == 1)
-			{
-				firstTrack = this.tracks[0];
-				lastTrack = this.tracks[0];
-			}
-			else
-			{
+			if (totalTracks > 0) {
 				firstTrack = this.tracks[0];
 				lastTrack = this.tracks[totalTracks - 1];
 			}
@@ -146,15 +149,16 @@ namespace GarFit.TCX
 			this.totalTimeSeconds += lastTrack.TotalTimeSeconds;
 
 			// assign startPosition Lat & Long
-			if (totalTracks == 1)
-			{
+			if (firstTrack != null) {
 				this.startPositionLat = firstTrack.StartPositionLat;
 				this.startPositionLong = firstTrack.StartPositionLong;
 			}
-
-			// TODO: assign lastPosition Lat & Long
-			this.endPositionLat = lastTrack.StartPositionLat;
-			this.endPositionLong = lastTrack.StartPositionLong;
+			
+			// assign lastPosition Lat & Long
+			if (lastTrack != null) {
+				this.endPositionLat = lastTrack.StartPositionLat;
+				this.endPositionLong = lastTrack.StartPositionLong;
+			}
 		}
 	}
 }

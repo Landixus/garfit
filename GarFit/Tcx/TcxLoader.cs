@@ -1,35 +1,108 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
+using System.IO;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+using System.Xml.XPath;
+using GarFit.TCX2;
 using DateTime = Dynastream.Fit.DateTime;
 
-namespace GarFit.TCX
-{
-	public class TcxLoader
-	{
+namespace GarFit.TCX {
+	public class TcxLoader {
+		/// <summary>
+		/// Load tcx into Activities class
+		/// </summary>
+		/// <param name="tcxFile"></param>
+		/// <returns>List of activities</returns>
+		public TrainingCenterDatabase_t LoadActivities(string tcxFile) {
+			
+			// load file
+			XmlDocument tcxDocument = null;
+			try {
+				tcxDocument = GetTcxDoc(tcxFile);
+			} catch (Exception ex) {
+				Utils.LogMessage(LogType.Error, "Error while reading tcx file.", ex);
+				return null;
+			}
+			/*
+			// create new & empty list of activities
+			var activities = new List<TcxActivity>();
+			
+			// navigate and fill data
+			XmlNode root = tcxDocument.DocumentElement;
+			XmlNamespaceManager nsmgr = new XmlNamespaceManager(tcxDocument.NameTable);  
+			nsmgr.AddNamespace("tcd", "http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2");
+			
+			// count Activities
+			XmlNodeList xActivities = root.SelectNodes("//Activity[Sport=Running]", nsmgr);
+			foreach (XmlNode xActivity in xActivities) {
+				
+				//TcxActivity activityData = new TcxActivity();
+				
+			}*/
+			
+			var serializer = new XmlSerializer(typeof(TrainingCenterDatabase_t));
+			var settings = new XmlReaderSettings();
+			settings.Schemas.Add("http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2",
+				"http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd");
+			settings.ValidationType = ValidationType.Schema;
+				
+			TrainingCenterDatabase_t tcd;
+			using (XmlReader reader = XmlReader.Create(tcxFile, settings)) {
+				tcd = (TrainingCenterDatabase_t)serializer.Deserialize(reader);
+			}
+			
+			return tcd;
+		}
+		
 		/// <summary>
 		/// Load the Xml document for parsing
 		/// </summary>
-		/// <param name="sFile">Fully qualified file name (local)</param>
+		/// <param name="tcxFile">Fully qualified file name (local)</param>
 		/// <returns>XDocument</returns>
-		private XDocument GetTcxDoc(string sFile)
-		{
-			XDocument tcxDoc = XDocument.Load(sFile);
-			return tcxDoc;
+		public XmlDocument GetTcxDoc(string tcxFile) {
+			try {
+				var settings = new XmlReaderSettings();
+				settings.Schemas.Add("http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2",
+					"http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd");
+				settings.ValidationType = ValidationType.Schema;
+				
+				XmlReader reader = XmlReader.Create(tcxFile, settings);
+				var document = new XmlDocument();
+				document.Load(reader);
+				
+				// validate document
+				var eventHandler = new ValidationEventHandler(ValidationEventHandler);
+				document.Validate(eventHandler);
+				
+				// close reader
+				reader.Close();
+				
+				return document;
+			} catch (Exception ex) {
+				//Console.WriteLine(ex.Message);
+				throw ex;
+			}
 		}
-
+		
 		/// <summary>
-		/// Load the namespace for a standard GPX document
+		/// Validation handler for XML document
 		/// </summary>
-		/// <returns></returns>
-		private XNamespace GetTcxNameSpace()
-		{
-			XNamespace tcx = XNamespace.Get("http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd");
-			return tcx;
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		static void ValidationEventHandler(object sender, ValidationEventArgs e) {
+			switch (e.Severity) {
+				case XmlSeverityType.Error:
+					Console.WriteLine("Error: {0}", e.Message);
+					break;
+				case XmlSeverityType.Warning:
+					Console.WriteLine("Warning {0}", e.Message);
+					break;
+			}
 		}
 
-		internal static TcxActivity CreateTestData()
-		{
+		internal static TcxActivity CreateTestData() {
 			TcxActivity activity = new TcxActivity("2018-07-28T22:12:29.000Z");
 
 			// create Lap1.

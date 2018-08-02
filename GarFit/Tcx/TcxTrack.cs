@@ -39,11 +39,12 @@ namespace GarFit.TCX
 			this._calculate();
 		}
 
-        /// <summary>
-        /// Sets the total time seconds.
-        /// </summary>
-        /// <param name="tcxTotalTimeSeconds">Tcx total time seconds.</param>
-		public void SetTotalTimeSeconds(double tcxTotalTimeSeconds) {
+		/// <summary>
+		/// Sets the total time seconds.
+		/// </summary>
+		/// <param name="tcxTotalTimeSeconds">Tcx total time seconds.</param>
+		public void SetTotalTimeSeconds(double tcxTotalTimeSeconds)
+		{
 			this.totalTimeSeconds = tcxTotalTimeSeconds;
 		}
 
