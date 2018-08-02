@@ -9,30 +9,13 @@ using GarFit.TCX2;
 using DateTime = Dynastream.Fit.DateTime;
 
 namespace GarFit.TCX {
-	public class TcxLoader {
+	public static class TcxLoader {
 		/// <summary>
 		/// Load tcx into Activities class
 		/// </summary>
 		/// <param name="tcxFile"></param>
 		/// <returns>List of activities</returns>
 		public static TrainingCenterDatabase_t LoadActivities(string tcxFile) {
-			/*
-			// create new & empty list of activities
-			var activities = new List<TcxActivity>();
-			
-			// navigate and fill data
-			XmlNode root = tcxDocument.DocumentElement;
-			XmlNamespaceManager nsmgr = new XmlNamespaceManager(tcxDocument.NameTable);  
-			nsmgr.AddNamespace("tcd", "http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2");
-			
-			// count Activities
-			XmlNodeList xActivities = root.SelectNodes("//Activity[Sport=Running]", nsmgr);
-			foreach (XmlNode xActivity in xActivities) {
-				
-				//TcxActivity activityData = new TcxActivity();
-				
-			}*/
-			
 			var serializer = new XmlSerializer(typeof(TrainingCenterDatabase_t));
 			var settings = new XmlReaderSettings();
 			settings.Schemas.Add("http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2",
@@ -51,16 +34,11 @@ namespace GarFit.TCX {
 			return tcd;
 		}
 		
-		/// <summary>
-		/// Load the Xml document for parsing
-		/// </summary>
-		/// <param name="tcxFile">Fully qualified file name (local)</param>
-		/// <returns>XDocument</returns>
 		/*public static XmlDocument GetTcxDoc(string tcxFile) {
 			try {
 				var settings = new XmlReaderSettings();
-				settings.Schemas.Add("http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2",
-					"http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd");
+				settings.Schemas.Add(@"http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2",
+					@"http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd");
 				settings.ValidationType = ValidationType.Schema;
 				
 				XmlReader reader = XmlReader.Create(tcxFile, settings);
