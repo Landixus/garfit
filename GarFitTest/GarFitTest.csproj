@@ -52,6 +52,10 @@
       <Project>{DDB617E1-4624-4489-B1E1-AED2C14D5C86}</Project>
       <Name>GarFit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dynastream\Dynastream.csproj">
+      <Project>{4AD0E25C-856D-4AF0-A231-274201645E09}</Project>
+      <Name>Dynastream</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
