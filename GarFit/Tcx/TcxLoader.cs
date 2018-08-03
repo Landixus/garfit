@@ -9,31 +9,7 @@ using GarFit.TCX2;
 using DateTime = Dynastream.Fit.DateTime;
 
 namespace GarFit.TCX {
-	public static class TcxLoader {
-		/// <summary>
-		/// Load tcx into Activities class
-		/// </summary>
-		/// <param name="tcxFile"></param>
-		/// <returns>List of activities</returns>
-		public static TrainingCenterDatabase_t LoadActivities(string tcxFile) {
-			var serializer = new XmlSerializer(typeof(TrainingCenterDatabase_t));
-			var settings = new XmlReaderSettings();
-			settings.Schemas.Add("http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2",
-				"http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd");
-			settings.ValidationType = ValidationType.Schema;
-			settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
-			settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
-			settings.ValidationFlags |= XmlSchemaValidationFlags.None;
-			settings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
-				
-			TrainingCenterDatabase_t tcd;
-			using (XmlReader reader = XmlReader.Create(tcxFile, settings)) {
-				tcd = (TrainingCenterDatabase_t)serializer.Deserialize(reader);
-			}
-			
-			return tcd;
-		}
-		
+	public static class TcxLoader {		
 		/*public static XmlDocument GetTcxDoc(string tcxFile) {
 			try {
 				var settings = new XmlReaderSettings();
@@ -59,18 +35,7 @@ namespace GarFit.TCX {
 			}
 		}*/
 		
-		/// <summary>
-		/// Validation handler for XML document
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private static void ValidationCallBack(object sender, ValidationEventArgs args) {
-			if (args.Severity == XmlSeverityType.Warning)
-				Console.WriteLine("\tWarning: Matching schema not found.  No validation occurred." + args.Message);
-			else
-				Console.WriteLine("\tValidation error: " + args.Message);
-
-		}
+		
 
 		internal static TcxActivity CreateTestData() {
 			TcxActivity activity = new TcxActivity("2018-07-28T22:12:29.000Z");

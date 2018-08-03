@@ -25,6 +25,8 @@ namespace GarFit {
 				logger = log4net.LogManager.GetLogger("Log");
 			
 			if (!string.IsNullOrEmpty(message)) {
+                //logger.Debug(message, exception);
+
 				switch (logType) {
 					case LogType.Information:
 						logger.Info(message, exception);
@@ -37,6 +39,8 @@ namespace GarFit {
 						break;
 				}
 			} else {
+                //logger.Debug(exception.Message, exception);
+
 				switch (logType) {
 					case LogType.Information:
 						logger.Info(exception.Message, exception);

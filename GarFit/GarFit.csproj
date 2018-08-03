@@ -340,7 +340,7 @@
     <Compile Include="FitGen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TCX2\TrainingCenterDatabasev2.cs" />
+    <Compile Include="TCX2\TrainingCenterDatabasev2.Designer.cs" />
     <Compile Include="Tcx\TcxActivity.cs" />
     <Compile Include="Tcx\TcxLap.cs" />
     <Compile Include="Tcx\TcxLoader.cs" />
@@ -352,18 +352,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="TCX2\TrainingCenterDatabasev2.xsd" />
+    <Content Include="TCX2\TrainingCenterDatabasev2.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dynastream" />
-    <Folder Include="Dynastream\Fit" />
-    <Folder Include="Dynastream\Fit\Profile" />
-    <Folder Include="Dynastream\Fit\Profile\Mesgs" />
-    <Folder Include="Dynastream\Fit\Profile\Types" />
-    <Folder Include="Dynastream\Utility" />
-    <Folder Include="Tcx" />
-    <Folder Include="TCX2" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -17,12 +17,16 @@ namespace GarFit
 
             //  read tcx file to class
             string inputTcxFile = "";
+
+            //  test
+            inputTcxFile = @"C:\Users\nhdinh\Desktop\GarFit\files\1.tcx";
+            /*
             if (args.Length != 1)
             {
                 Console.Write("Usage: CreateFitFile <tcxFile>");
                 return;
             }
-            else inputTcxFile = args[0];
+            else inputTcxFile = args[0];*/
 
             // check input file
             if (!System.IO.File.Exists(inputTcxFile))

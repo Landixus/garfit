@@ -24,7 +24,7 @@
               <LongitudeDegrees>107.07369058392942</LongitudeDegrees>
             </Position>
             <AltitudeMeters>-15.199999809265137</AltitudeMeters>
-            <DistanceMeters>0.0</DistanceMeters>
+            <DistanceMeters>0.1</DistanceMeters>
             <Extensions>
               <ns3:TPX>
                 <ns3:Speed>2.7149999141693115</ns3:Speed>

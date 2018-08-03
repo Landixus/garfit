@@ -1,25 +1,26 @@
-﻿/*
- * Created by SharpDevelop.
- * User: nhdinh
- * Date: 8/2/2018
- * Time: 16:38
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
-using System;
+﻿using System;
+using System.IO;
 using GarFit;
 using GarFit.TCX2;
 using NUnit.Framework;
+using System.Reflection;
 
-namespace GarFitTest.Tcx
-{
+namespace GarFitTest.Tcx {
 	[TestFixture]
-	public class FitGenTest
-	{
+	public class FitGenTest {
 		[Test]
-		public void EncodeActivityFileTest()
-		{
-			TrainingCenterDatabase_t db = FitGen.ReadTcxFile(@"C:\Users\nhdinh\Desktop\GarFit\GarFit\bin\Debug\1.tcx");
+		public void EncodeActivityFileTest() {
+			string assemblyFilePath = Assembly.GetExecutingAssembly().GetName().CodeBase;
+			string assemblyPath = assemblyFilePath.Replace(Path.GetFileName(assemblyFilePath), "");
+			
+			string tcxFile = assemblyPath;
+			tcxFile += ".." + Path.DirectorySeparatorChar;
+			tcxFile += ".." + Path.DirectorySeparatorChar;
+			tcxFile += ".." + Path.DirectorySeparatorChar;
+			tcxFile += "files" + Path.DirectorySeparatorChar;
+			tcxFile += "1.tcx";
+			
+			TrainingCenterDatabase_t db = FitGen.ReadTcxFile(tcxFile);
 			FitGen.EncodeActivityFile(db, null);
 			
 			Assert.Pass();
